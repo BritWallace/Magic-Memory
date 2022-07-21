@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+
+import { useState } from 'react'
+import './App.css'
+
+const cardImages = [
+  { "src": "/images/c01.jpg)" },
+  { "src": "/images/c02.jpg)"  },
+  { "src": "/images/c03.jpg)"  },
+  { "src": "/images/c04.jpg)"  },
+  { "src": "/images/c05.jpg)"  },
+  { "src": "/images/c06.jpg)"  },
+]
 
 function App() {
+  const [cards, setCards] = useState([])
+  const [turns, setTurns] = useState(0)
+
+  // shuffle cards for new game
+  const shuffleCards = () => {
+    const shuffledCards = [...cardImages, ...cardImages]
+      .sort(() => Math.random() - 0.5)
+      .map(card => ({ ...card, id: Math.random() }))
+      
+    setCards(shuffledCards)
+    setTurns(0)
+  }
+
+  console.log(cards, turns)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Magic Match</h1>
+      <button onClick={shuffleCards}>New Game</button>
     </div>
   );
 }
 
-export default App;
+export default App
